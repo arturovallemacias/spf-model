@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>¿Cuánta luz del sol deja pasar tu protector? — SPF·MODEL</title>
+<style>
+  :root{
+    --bg:#f3f4fa; --ink:#17162b; --mute:#6c6a8a; --line:rgba(120,110,190,.16);
+    --pink:#ff3d8b; --mag:#d946ef; --vio:#8b5cf6; --blue:#4f7cff; --cyan:#22c3ee; --ok:#16a874;
+    --panel:rgba(255,255,255,.74);
+    --mono:"Cascadia Code","JetBrains Mono",Consolas,ui-monospace,monospace;
+    --sans:"Segoe UI Variable Display","Segoe UI Variable","Segoe UI","Inter",system-ui,sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{position:relative;font-family:var(--sans);color:var(--ink);font-size:16px;line-height:1.5;min-height:100vh;overflow-x:hidden;
+    background:
+      radial-gradient(1000px 700px at 8% -5%,rgba(255,61,139,.14),transparent 60%),
+      radial-gradient(1100px 800px at 98% 5%,rgba(139,92,246,.17),transparent 60%),
+      radial-gradient(1000px 800px at 50% 105%,rgba(34,195,238,.12),transparent 60%),var(--bg)}
+  body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:-1;
+    background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);
+    background-size:48px 48px;mask-image:radial-gradient(ellipse at 50% 20%,#000 30%,transparent 80%);opacity:.5}
+  .hero-bg{position:absolute;top:0;left:0;width:min(1180px,72vw);height:820px;z-index:-1;pointer-events:none;
+    background:url("/*__FONDO__*/") 38% 28%/cover no-repeat;opacity:.85;filter:saturate(1.15) contrast(.95);
+    -webkit-mask-image:linear-gradient(90deg,#000 0%,#000 30%,transparent 88%),linear-gradient(180deg,#000 45%,transparent 100%);
+    -webkit-mask-composite:source-in;mask-image:linear-gradient(90deg,#000 0%,#000 30%,transparent 88%),linear-gradient(180deg,#000 45%,transparent 100%);mask-composite:intersect}
+  .hero-bg::after{content:"";position:absolute;inset:0;background:linear-gradient(120deg,rgba(255,236,214,.35),rgba(255,61,139,.08) 50%,rgba(139,92,246,.10))}
+  .wrap{max-width:1560px;margin:0 auto;padding:36px 40px 56px}
+  .grad{background:linear-gradient(90deg,var(--pink),var(--vio) 55%,var(--blue));-webkit-background-clip:text;background-clip:text;color:transparent}
+  .eyebrow{font-family:var(--mono);font-size:13px;letter-spacing:.28em;color:var(--vio);text-transform:uppercase}
+
+  .hero{display:grid;grid-template-columns:1.25fr 1fr;gap:40px;align-items:end;margin-bottom:34px}
+  h1{font-size:58px;line-height:1.02;letter-spacing:-.035em;font-weight:700;margin-top:14px}
+  .lead{font-size:20px;color:#45436a;margin-top:18px;max-width:760px}
+  .pills{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+  .pill{padding:18px 20px;border-radius:20px;background:var(--panel);backdrop-filter:blur(14px);border:1px solid #fff;box-shadow:0 18px 40px -28px rgba(76,52,160,.55)}
+  .pill b{display:block;font-size:30px;letter-spacing:-.02em;line-height:1.1}
+  .pill span{font-size:14px;color:var(--mute)}
+  .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+  .chip{font-family:var(--mono);font-size:12.5px;padding:6px 12px;border-radius:999px;background:var(--panel);border:1px solid rgba(139,92,246,.22);color:#4b4870}
+  .chip i{font-style:normal;color:var(--mute);margin-right:6px}
+  .dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:#2fd18b;box-shadow:0 0 0 4px rgba(47,209,139,.18);margin-right:7px;vertical-align:1px;animation:pulse 2s infinite}
+  @keyframes pulse{50%{box-shadow:0 0 0 8px rgba(47,209,139,.03)}}
+
+  section{margin-top:56px}
+  .sec-h{display:flex;align-items:flex-end;justify-content:space-between;gap:30px;margin-bottom:20px}
+  .sec-h .num{font-family:var(--mono);font-size:14px;color:var(--vio);border:1px solid rgba(139,92,246,.35);border-radius:10px;padding:4px 10px;margin-right:14px;vertical-align:8px}
+  h2{font-size:38px;letter-spacing:-.025em;line-height:1.1;font-weight:700}
+  .sec-h p{font-size:17.5px;color:#4f4d72;max-width:640px}
+  .card{position:relative;border-radius:26px;background:var(--panel);backdrop-filter:blur(16px);border:1px solid #fff;
+    box-shadow:0 30px 60px -36px rgba(76,52,160,.55),inset 0 1px 0 #fff;padding:22px 24px}
+  .card h3{font-size:20px;font-weight:650;letter-spacing:-.01em}
+  .card .desc{font-size:15px;color:var(--mute);margin-top:4px}
+  canvas{display:block;width:100%}
+  .stage{position:relative}
+  .stage canvas{position:absolute;inset:0;width:100%;height:100%}
+  .hint{font-family:var(--mono);font-size:12.5px;color:#8f8bb0;margin-top:8px}
+
+  .lab{display:grid;grid-template-columns:400px 1fr 360px;gap:18px;align-items:start}
+  .vehs{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:12px 0 18px}
+  .veh{cursor:pointer;text-align:left;border-radius:14px;padding:10px 12px;border:1px solid rgba(139,92,246,.2);background:rgba(255,255,255,.6);font:inherit;color:inherit;transition:.15s}
+  .veh b{display:block;font-size:15px}
+  .veh span{font-size:12.5px;color:var(--mute);line-height:1.3;display:block;margin-top:2px}
+  .veh.on{background:linear-gradient(135deg,rgba(255,61,139,.12),rgba(139,92,246,.16));border-color:rgba(139,92,246,.6);box-shadow:0 8px 20px -12px rgba(139,92,246,.7)}
+  .flist{max-height:420px;overflow:auto;padding-right:6px;margin-right:-6px}
+  .flt{padding:9px 0 8px;border-top:1px solid rgba(139,92,246,.1)}
+  .ft{display:flex;align-items:center;gap:8px;font-size:15px}
+  .ft .nm{cursor:pointer;font-weight:550}
+  .ft .nm:hover{color:var(--vio);text-decoration:underline dotted}
+  .ft .nm.map{color:var(--vio)}
+  .bd{font-family:var(--mono);font-size:11px;padding:2px 7px;border-radius:6px;letter-spacing:.04em}
+  .bd.UVB{background:rgba(139,92,246,.12);color:#6d3fd6}.bd.UVA{background:rgba(255,61,139,.12);color:#c21f66}
+  .bd.Amplio{background:linear-gradient(90deg,rgba(139,92,246,.14),rgba(255,61,139,.14));color:#8a2fb0}.bd.Mineral{background:rgba(34,195,238,.14);color:#0e7f9c}
+  .ft .vv{margin-left:auto;font-family:var(--mono);font-size:14px;font-variant-numeric:tabular-nums}
+  .ft .vv small{color:#a3a0c0}
+  input[type=range]{width:100%;height:22px;accent-color:var(--vio);cursor:pointer}
+  .row{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+  .btn{font:inherit;font-size:13px;padding:7px 12px;border-radius:10px;border:1px solid rgba(139,92,246,.3);background:rgba(255,255,255,.7);color:#4b4870;cursor:pointer}
+  .btn:hover{border-color:var(--vio);color:var(--vio)}
+  .explain{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:14px}
+  .explain div{border-radius:14px;padding:10px 12px;background:rgba(255,255,255,.6);border:1px solid rgba(139,92,246,.14);font-size:14px;color:#4f4d72}
+  .explain b{display:block;font-family:var(--mono);font-size:20px;color:var(--ink)}
+  .spf-big{display:flex;align-items:flex-end;gap:10px;margin-top:4px}
+  .spf-big .n{font-size:84px;font-weight:750;letter-spacing:-.05em;line-height:.95;font-variant-numeric:tabular-nums}
+  .spf-big .u{font-size:18px;color:var(--mute);padding-bottom:12px}
+  .say{font-size:17px;margin-top:8px;color:#3f3d63}
+  .say b{font-size:22px}
+  .meter{margin-top:14px}
+  .meter .t{display:flex;justify-content:space-between;font-size:14px;color:#4f4d72}
+  .meter .t b{font-family:var(--mono)}
+  .track{position:relative;height:10px;border-radius:6px;background:rgba(139,92,246,.12);margin-top:6px;overflow:hidden}
+  .track i{position:absolute;left:0;top:0;bottom:0;border-radius:6px;background:linear-gradient(90deg,var(--cyan),var(--vio),var(--pink));transition:width .25s}
+  .track .mk{position:absolute;top:-3px;bottom:-3px;width:2px;background:#17162b}
+  .warn{margin-top:12px;font-size:13.5px;border-radius:12px;padding:8px 12px;background:rgba(255,61,139,.08);border:1px solid rgba(255,61,139,.25);color:#a31656;display:none}
+  .disc{font-size:12.5px;color:#8f8bb0;margin-top:12px}
+
+  .ctrl{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+  select{font:inherit;font-size:15px;padding:7px 12px;border-radius:10px;border:1px solid rgba(139,92,246,.3);background:#fff;color:var(--ink)}
+  .seg{display:inline-flex;border:1px solid rgba(139,92,246,.3);border-radius:12px;overflow:hidden}
+  .seg button{font:inherit;font-size:14px;padding:7px 12px;border:0;background:transparent;color:#4b4870;cursor:pointer}
+  .seg button.on{background:linear-gradient(90deg,var(--pink),var(--vio));color:#fff}
+  .axes{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:14px}
+  .axes div{font-size:14.5px;color:#4f4d72;padding:10px 14px;border-radius:14px;background:rgba(255,255,255,.6);border:1px solid rgba(139,92,246,.14)}
+  .axes b{font-family:var(--mono);font-size:13px;color:var(--vio);display:block;letter-spacing:.08em}
+
+  .kpis{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin-bottom:18px}
+  .kpi{position:relative;padding:18px 20px 16px;border-radius:20px;background:var(--panel);border:1px solid #fff;box-shadow:0 14px 34px -22px rgba(76,52,160,.5);overflow:hidden}
+  .kpi::after{content:"";position:absolute;left:0;right:0;bottom:0;height:4px;background:linear-gradient(90deg,var(--pink),var(--vio),var(--cyan))}
+  .kpi .lab{font-size:15px;font-weight:600}
+  .kpi .val{font-size:40px;font-weight:700;letter-spacing:-.03em;line-height:1.1;margin-top:6px;font-variant-numeric:tabular-nums}
+  .kpi .val small{font-size:17px;color:var(--mute);font-weight:500;margin-left:3px}
+  .kpi .sub{font-size:13.5px;color:var(--mute);margin-top:4px}
+  .kpi .sub b{color:var(--blue)}
+  .g2{display:grid;grid-template-columns:1.55fr 1fr;gap:18px}
+  .g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:18px;margin-top:18px}
+  .legend{display:flex;gap:18px;font-size:14px;color:#55527a;margin-top:8px;flex-wrap:wrap}
+  .legend span::before{content:"";display:inline-block;width:20px;height:4px;border-radius:2px;margin-right:7px;vertical-align:3px;background:var(--c)}
+  .tabs{display:flex;gap:6px}
+  .tab{font:inherit;font-size:13px;padding:5px 11px;border-radius:9px;border:1px solid rgba(139,92,246,.25);background:transparent;color:#5b5880;cursor:pointer}
+  .tab.on{background:linear-gradient(90deg,var(--pink),var(--vio));color:#fff;border-color:transparent}
+  .vehs-err{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:14px}
+  .vehs-err > div{border-radius:14px;padding:10px 12px;background:rgba(255,255,255,.6);border:1px solid rgba(139,92,246,.14)}
+  .vehs-err .k{font-size:13px;color:var(--mute)}
+  .vehs-err .v{font-size:24px;font-weight:700}
+
+  .glos{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+  .glos .card h3{font-size:22px;margin-bottom:6px}
+  .glos .card p{font-size:16px;color:#4f4d72}
+  .glos .card .ico{font-family:var(--mono);font-size:13px;color:var(--vio);letter-spacing:.14em;text-transform:uppercase;margin-bottom:10px}
+
+  #tip{position:fixed;pointer-events:none;z-index:50;padding:10px 13px;border-radius:12px;background:rgba(23,22,43,.92);color:#fff;font-size:14px;line-height:1.4;
+    box-shadow:0 14px 30px -10px rgba(23,22,43,.6);opacity:0;transform:translateY(4px);transition:opacity .12s,transform .12s;max-width:300px}
+  #tip.on{opacity:1;transform:none}
+  #tip b{color:#ffb3d2}
+  #tip .m{font-family:var(--mono);font-size:12.5px;color:#c9c4e8}
+  footer{margin-top:44px;font-size:14px;color:var(--mute);display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
+  @media (max-width:1300px){.lab{grid-template-columns:1fr}.hero,.g2,.g3,.glos{grid-template-columns:1fr}.kpis{grid-template-columns:repeat(2,1fr)}}
+</style>
+</head>
+<body>
+<div class="hero-bg"></div>
+<div id="tip"></div>
+<div class="wrap">
+
+  <div class="hero">
+    <div>
+      <div class="eyebrow">Inteligencia artificial · cosmética · protección solar</div>
+      <h1>¿Cuánta luz del sol deja pasar <span class="grad">tu protector solar?</span></h1>
+      <p class="lead">Una inteligencia artificial que aprendió cómo los filtros UV atrapan la luz. Mueve los ingredientes y mira en tiempo real cuánta radiación bloquea tu fórmula, antes de pisar el laboratorio.</p>
+      <div class="chips" id="chips"></div>
+    </div>
+    <div class="pills" id="pills"></div>
+  </div>
+
+  <section id="lab">
+    <div class="sec-h">
+      <div><h2><span class="num">01</span>Laboratorio virtual</h2></div>
+      <p>Cada filtro UV es una molécula que absorbe ciertos colores de la luz del sol. Súbele o bájale a cada uno: la IA recalcula al instante cuánto protege la fórmula completa.</p>
+    </div>
+    <div class="lab">
+      <div class="card">
+        <h3>1 · Elige el formato</h3>
+        <div class="vehs" id="vehs"></div>
+        <h3>2 · Dosifica los filtros</h3>
+        <div class="desc">% del peso de la fórmula. Clic en un nombre para verlo en el mapa 3D.</div>
+        <div class="flist" id="flist"></div>
+        <div class="row" id="presets"></div>
+      </div>
+
+      <div class="card">
+        <h3>Espectro de protección</h3>
+        <div class="desc">Qué tanto bloquea tu fórmula cada color de luz ultravioleta. Pasa el mouse por la curva.</div>
+        <div class="stage" style="height:430px;margin-top:8px"><canvas id="spec"></canvas></div>
+        <div class="legend"><span style="--c:linear-gradient(90deg,#22c3ee,#8b5cf6,#ff3d8b)">tu fórmula (predicción de la IA)</span><span style="--c:rgba(139,92,246,.25)">rango de confianza</span><span style="--c:#c9c4e8">fórmula anterior</span></div>
+        <div class="explain">
+          <div><b>Absorbancia 1</b>bloquea el 90 % · pasa 1 de cada 10 rayos</div>
+          <div><b>Absorbancia 2</b>bloquea el 99 % · pasa 1 de cada 100</div>
+          <div><b>Absorbancia 3</b>bloquea el 99.9 % · pasa 1 de cada 1,000</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Resultado</h3>
+        <div class="spf-big"><span class="u">SPF</span><span class="n grad" id="spfN">—</span></div>
+        <div class="say" id="say"></div>
+        <div class="stage" style="height:210px;margin-top:10px"><canvas id="rays"></canvas></div>
+        <div class="meter"><div class="t"><span>Protección UVA (envejecimiento)</span><b id="uvaN">—</b></div><div class="track"><i id="uvaBar"></i></div></div>
+        <div class="meter"><div class="t"><span>Balance UVA / UVB</span><b id="balN">—</b></div><div class="track"><i id="balBar"></i><span class="mk" style="left:33.3%"></span></div>
+          <div class="hint">La marca negra es el mínimo recomendado en Europa (1/3)</div></div>
+        <div class="meter"><div class="t"><span>Carga total de filtros</span><b id="cargaN">—</b></div><div class="track"><i id="cargaBar"></i></div></div>
+        <div class="warn" id="warn"></div>
+        <div class="disc">Predicción de una IA entrenada con un gemelo digital físico. No sustituye la prueba oficial de SPF.</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="mapa">
+    <div class="sec-h">
+      <div><h2><span class="num">02</span>Mapa 3D de tu fórmula</h2></div>
+      <p>¿Qué pasa si le pongo más de un filtro? ¿Y si la vendo en spray en vez de crema? Aquí la IA recorre cientos de variantes de tu fórmula a la vez.</p>
+    </div>
+    <div class="card">
+      <div class="ctrl">
+        <span style="font-size:15px">Eje X, el filtro que varía:</span><select id="selF"></select>
+        <span style="font-size:15px;margin-left:12px">Altura:</span>
+        <div class="seg" id="selY">
+          <button data-k="spf" class="on">SPF</button>
+          <button data-k="pasa">% de luz UVB que pasa</button>
+          <button data-k="absB">Absorbancia UVB</button>
+          <button data-k="absA">Absorbancia UVA</button>
+        </div>
+        <span class="hint" style="margin-left:auto;margin-top:0">↻ arrastra para girar · pasa el mouse sobre los puntos · clic para usar esa dosis</span>
+      </div>
+      <div class="stage" style="height:560px;margin-top:6px"><canvas id="mapa3d"></canvas></div>
+      <div class="axes">
+        <div><b>EJE X · CANTIDAD</b>Cuánto pones del filtro elegido, de 0 % a su máximo legal. El resto de la fórmula es la del laboratorio.</div>
+        <div><b>EJE Z · FORMATO</b>Crema, crema resistente al agua, spray o barra. El formato cambia qué tan pareja queda la capa sobre la piel.</div>
+        <div><b>ALTURA · PROTECCIÓN</b>La protección resultante. Absorbancia = qué tanto bloquea: cada punto extra bloquea 10 veces más luz.</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="tec">
+    <div class="sec-h">
+      <div><h2><span class="num">03</span>¿Qué tan bien aprendió la IA?</h2></div>
+      <p id="tecLead"></p>
+    </div>
+    <div class="kpis" id="kpis"></div>
+    <div class="g2">
+      <div class="card">
+        <h3>Así ve la IA 48 fórmulas que nunca había visto</h3>
+        <div class="desc">Cada cresta es una fórmula, ordenadas de menor a mayor SPF. La línea es la predicción y los puntos son la medición.</div>
+        <div class="stage" style="height:520px"><canvas id="land"></canvas></div>
+        <div class="hint">↻ arrastra para girar · pasa el mouse sobre una cresta · clic para cargarla en el laboratorio</div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:18px">
+        <div class="card">
+          <div style="display:flex;align-items:center;gap:12px"><h3 style="flex:1">Cómo aprendió, época por época</h3>
+            <div class="tabs" id="tabs"><button class="tab on" data-k="err_spf">error SPF</button><button class="tab" data-k="r2">precisión R²</button><button class="tab" data-k="loss">loss</button></div></div>
+          <div class="desc">Si las curvas de práctica y examen van juntas, la IA entendió en lugar de memorizar.</div>
+          <div class="stage" style="height:270px"><canvas id="curvas"></canvas></div>
+          <div class="legend"><span style="--c:linear-gradient(90deg,#22c3ee,#4f7cff)">práctica (train)</span><span style="--c:linear-gradient(90deg,#d946ef,#ff3d8b)">examen (val)</span><span style="--c:#c9c4e8">mejor época</span></div>
+        </div>
+        <div class="card">
+          <h3>Error típico según el formato</h3>
+          <div class="desc">En fórmulas nuevas. El spray es el más difícil: su capa es la más dispareja.</div>
+          <div class="vehs-err" id="vehErr"></div>
+        </div>
+      </div>
+    </div>
+    <div class="g3">
+      <div class="card">
+        <h3>Lo que predijo vs lo que se midió</h3>
+        <div class="desc">Cada punto es una fórmula. Sobre la diagonal = acierto perfecto.</div>
+        <div class="stage" style="height:340px"><canvas id="disp"></canvas></div>
+        <div class="legend"><span style="--c:#4f7cff">práctica</span><span style="--c:#ff3d8b">examen</span><span style="--c:rgba(139,92,246,.2)">±10 %</span></div>
+      </div>
+      <div class="card">
+        <h3>¿Se equivoca igual con lo nuevo?</h3>
+        <div class="desc">Cuántas fórmulas caen en cada rango de error. Atrás práctica, al frente examen.</div>
+        <div class="stage" style="height:340px"><canvas id="res"></canvas></div>
+      </div>
+      <div class="card">
+        <h3>¿Sabe cuándo no está segura?</h3>
+        <div class="desc">La IA no sólo predice: también estima su propio margen de error. Si está bien calibrada, el 95 % de las mediciones caen dentro de su rango.</div>
+        <div class="stage" style="height:300px"><canvas id="cob"></canvas></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="glos">
+    <div class="sec-h"><div><h2><span class="num">04</span>Las palabras clave</h2></div><p>Lo mínimo para leer este tablero como formulador o como cliente.</p></div>
+    <div class="glos">
+      <div class="card"><div class="ico">Absorbancia</div><h3>Qué tanto bloquea</h3><p>Mide cuánta luz de un color se queda atrapada en la crema. Es una escala de potencias de 10: absorbancia 1 deja pasar el 10 %, 2 el 1 % y 3 el 0.1 %. Cada punto más bloquea diez veces más.</p></div>
+      <div class="card"><div class="ico">SPF</div><h3>Factor de protección solar</h3><p>SPF 30 quiere decir que, de cada 30 rayos que queman, pasa 1. Se calcula pesando la absorbancia por cuánto quema cada color de luz y cuánto de ese color trae el sol.</p></div>
+      <div class="card"><div class="ico">UVB y UVA</div><h3>Quemadura y envejecimiento</h3><p>El UVB (290–320 nm) quema la piel. El UVA (320–400 nm) entra más hondo, envejece y mancha. Un buen protector equilibra los dos: en Europa la protección UVA debe ser al menos un tercio del SPF.</p></div>
+      <div class="card"><div class="ico">Formato</div><h3>Crema, spray o barra</h3><p>La misma fórmula protege distinto según cómo se aplica. El spray deja una capa más dispareja, con zonas casi sin producto, y por eso protege menos que una crema.</p></div>
+      <div class="card"><div class="ico">Fotoestabilidad</div><h3>Filtros que se gastan</h3><p>Algunos filtros se degradan con el sol, como la avobenzona. Otros la protegen, como el octocrileno. La IA aprendió estas interacciones entre ingredientes.</p></div>
+      <div class="card"><div class="ico">Gemelo digital</div><h3>De dónde aprendió</h3><p>La IA aprendió de 200 mil fórmulas generadas con un simulador físico de la luz y las moléculas. El siguiente paso es afinarla con mediciones reales de laboratorio de cada marca.</p></div>
+    </div>
+  </section>
+
+  <footer><span id="foot"></span><span>Datos de un gemelo digital: "medición" = simulador físico + ruido de instrumento y de aplicación.</span></footer>
+</div>
+
+<script>
+const D = /*__DATOS__*/null;
+(D.pesos ? Promise.resolve(D.pesos) : fetch(D.pesos_url).then(r => { if (!r.ok) throw new Error(r.status); return r.json(); }))
+  .then(p => { D.pesos = p; iniciar(); })
+  .catch(e => document.body.insertAdjacentHTML("afterbegin", `<div style="padding:18px 40px;color:#a31656;font-size:16px">No se pudieron cargar los pesos del modelo (${e}). Esta versión necesita servirse desde la web (GitHub Pages); para abrirla con doble clic usa graficas/panel_*.html.</div>`));
+function iniciar() {
+const L = D.lambdas, NL = L.length, M = D.muestras, H = D.historial, FL = D.filtros, NF = FL.length;
+const $ = s => document.querySelector(s);
+const fmt = (x, d = 1) => Number(x).toFixed(d);
+const pct = x => (100 * x).toFixed(1);
+const MONO = "Cascadia Code, JetBrains Mono, Consolas, monospace";
+const SANS = "Segoe UI Variable, Segoe UI, Inter, system-ui, sans-serif";
+const VEH = {
+  emulsion_ow: ["Crema", "Ligera, aceite en agua"],
+  emulsion_wo: ["Crema resistente al agua", "Agua en aceite, capa más pareja"],
+  spray: ["Spray", "Capa dispareja: protege menos"],
+  barra: ["Barra", "Práctica, capa intermedia"],
+};
+const vname = v => (VEH[v] || [v])[0];
+const PAL = ["#22c3ee", "#4f7cff", "#8b5cf6", "#d946ef", "#ff3d8b"];
+const hex = h => [1, 3, 5].map(i => parseInt(h.slice(i, i + 2), 16));
+const rgba = (c, a) => `rgba(${c[0]},${c[1]},${c[2]},${a})`;
+function lerpColor(t) {
+  t = Math.max(0, Math.min(1, t));
+  const s = t * (PAL.length - 1), i = Math.min(Math.floor(s), PAL.length - 2), f = s - i, a = hex(PAL[i]), b = hex(PAL[i + 1]);
+  return [0, 1, 2].map(k => Math.round(a[k] + (b[k] - a[k]) * f));
+}
+function setup(cv) {
+  const r = window.devicePixelRatio || 1, w = cv.clientWidth, h = cv.clientHeight;
+  if (cv.width !== Math.round(w * r) || cv.height !== Math.round(h * r)) { cv.width = Math.round(w * r); cv.height = Math.round(h * r); }
+  const g = cv.getContext("2d"); g.setTransform(r, 0, 0, r, 0, 0); g.clearRect(0, 0, w, h);
+  return [g, w, h];
+}
+const tip = $("#tip");
+function showTip(e, html) { tip.innerHTML = html; tip.classList.add("on"); const x = Math.min(e.clientX + 16, innerWidth - 320); tip.style.left = x + "px"; tip.style.top = (e.clientY + 16) + "px"; }
+function hideTip() { tip.classList.remove("on"); }
+
+/* =================== la IA dentro del navegador =================== */
+function dec(o) { const b = atob(o.data), u = new Uint8Array(b.length); for (let i = 0; i < b.length; i++) u[i] = b.charCodeAt(i); const f = new Float32Array(u.buffer); f.shape = o.shape; return f; }
+const P = {}; for (const k in D.pesos) P[k] = dec(D.pesos[k]);
+const MAX = P["max_pct"];
+const sp = x => x > 20 ? x : Math.log1p(Math.exp(x));
+const silu = x => x / (1 + Math.exp(-x));
+function lin(W, b, x) { const o = W.shape[0], n = W.shape[1], y = new Float32Array(o); for (let r = 0; r < o; r++) { let s = b ? b[r] : 0; const off = r * n; for (let i = 0; i < n; i++) s += W[off + i] * x[i]; y[r] = s; } return y; }
+function lnorm(x, w, b) { let m = 0; for (let i = 0; i < x.length; i++) m += x[i]; m /= x.length; let s = 0; for (let i = 0; i < x.length; i++) s += (x[i] - m) ** 2; s /= x.length; const d = 1 / Math.sqrt(s + 1e-5), y = new Float32Array(x.length); for (let i = 0; i < x.length; i++) y[i] = (x[i] - m) * d * w[i] + b[i]; return y; }
+function fwdMLP(c, v) {
+  const NV = D.vehiculos.length, x = new Float32Array(NF + NV);
+  for (let i = 0; i < NF; i++) x[i] = c[i] / MAX[i]; x[NF + v] = 1;
+  const h = lin(P["entrada.weight"], P["entrada.bias"], x);
+  for (let b = 0; P[`bloques.${b}.l1.weight`]; b++) {
+    const n = lnorm(h, P[`bloques.${b}.norma.weight`], P[`bloques.${b}.norma.bias`]);
+    const u = lin(P[`bloques.${b}.l1.weight`], P[`bloques.${b}.l1.bias`], n); for (let i = 0; i < u.length; i++) u[i] = silu(u[i]);
+    const z = lin(P[`bloques.${b}.l2.weight`], P[`bloques.${b}.l2.bias`], u); for (let i = 0; i < h.length; i++) h[i] += z[i];
+  }
+  const o = lin(P["salida.1.weight"], P["salida.1.bias"], lnorm(h, P["salida.0.weight"], P["salida.0.bias"]));
+  const mu = new Float32Array(NL), sd = new Float32Array(NL);
+  for (let i = 0; i < NL; i++) { mu[i] = sp(o[i]); sd[i] = Math.exp(0.5 * Math.min(5, Math.max(-10, o[NL + i]))); }
+  return { mu, sd };
+}
+const FIS = D.arquitectura === "fisico" ? { kf: Array.from(P["p_foto"], sp), ab: P["p_abs"].map(sp) } : null;
+function fwdFis(c, v) {
+  const W = P["W"], cp = new Float32Array(NF);
+  for (let i = 0; i < NF; i++) { let s = 0; for (let j = 0; j < NF; j++) s += W[i * NF + j] * c[j] / MAX[j]; s = Math.max(-10, Math.min(10, s)); cp[i] = c[i] * Math.exp(-FIS.kf[i] * D.dosis * Math.exp(s)); }
+  const k = sp(P["p_k"][v]) + 1e-3, mu = new Float32Array(NL), sd = new Float32Array(NL), lv = P["logvar"];
+  for (let l = 0; l < NL; l++) { let A = 0; for (let i = 0; i < NF; i++) A += cp[i] * FIS.ab[i * NL + l]; mu[l] = k * Math.log10(1 + A * Math.LN10 / k); sd[l] = Math.exp(0.5 * lv[v * NL + l]); }
+  return { mu, sd };
+}
+const predecir = D.arquitectura === "fisico" ? fwdFis : fwdMLP;
+const WS = D.w_spf, WU = D.w_uva, sWS = WS.reduce((a, b) => a + b, 0), sWU = WU.reduce((a, b) => a + b, 0);
+const spfDe = mu => { let s = 0; for (let i = 0; i < NL; i++) s += WS[i] * 10 ** (-mu[i]); return sWS / s; };
+const uvaDe = mu => { let s = 0; for (let i = 0; i < NL; i++) s += WU[i] * 10 ** (-mu[i]); return sWU / s; };
+const iUVA = L.indexOf(320);
+const mediaAbs = (mu, a, b) => { let s = 0; for (let i = a; i < b; i++) s += mu[i]; return s / (b - a); };
+
+/* =================== hero =================== */
+const mt = D.metricas.train, mv = D.metricas.val;
+$("#chips").innerHTML = [
+  `<span class="chip"><span class="dot"></span>${D.gpu}</span>`,
+  `<span class="chip"><i>modelo</i>${D.arquitectura}</span>`,
+  `<span class="chip"><i>parámetros</i>${(D.n_parametros || 0).toLocaleString("es-MX")}</span>`,
+  `<span class="chip"><i>inferencia</i>en tu navegador</span>`,
+].join("");
+$("#pills").innerHTML = [
+  [(D.n_train + D.n_val).toLocaleString("es-MX"), "fórmulas simuladas para entrenar"],
+  [pct(mv.err_spf) + " %", "error típico de SPF en fórmulas nuevas"],
+  ["<1 ms", "por predicción, contra semanas de laboratorio"],
+].map(p => `<div class="pill"><b class="grad">${p[0]}</b><span>${p[1]}</span></div>`).join("");
+
+/* =================== laboratorio =================== */
+const lab = { c: new Float32Array(NF), v: 0, ant: null, res: null, mapF: 1 };
+const ref0 = (D.referencias || []).find(r => Object.keys(r.filtros).length > 1) || (D.referencias || [])[0];
+function cargarFormula(filtros, vehiculo) {
+  lab.c.fill(0);
+  for (const [k, p] of Object.entries(filtros)) { const i = FL.findIndex(f => f.id === k); if (i >= 0) lab.c[i] = Math.min(p, FL[i].max); }
+  if (vehiculo !== undefined) lab.v = Math.max(0, D.vehiculos.indexOf(vehiculo));
+  syncUI(); recalcular(true);
+}
+$("#vehs").innerHTML = D.vehiculos.map((v, i) => `<button class="veh" data-i="${i}"><b>${vname(v)}</b><span>${(VEH[v] || ["", ""])[1]}</span></button>`).join("");
+document.querySelectorAll(".veh").forEach(b => b.onclick = () => { lab.ant = lab.res ? lab.res.mu : null; lab.v = +b.dataset.i; syncUI(); recalcular(true); });
+$("#flist").innerHTML = FL.map((f, i) => `<div class="flt"><div class="ft"><span class="nm" data-i="${i}">${f.nombre}</span><span class="bd ${f.banda}">${f.banda}</span><span class="vv" id="vv${i}"></span></div>
+  <input type="range" min="0" max="${f.max}" step="0.1" value="0" data-i="${i}"></div>`).join("");
+document.querySelectorAll("#flist input").forEach(s => {
+  s.oninput = () => { lab.c[+s.dataset.i] = +s.value; syncUI(); recalcular(false); };
+  s.onpointerdown = () => { lab.ant = lab.res ? lab.res.mu : null; };
+});
+document.querySelectorAll("#flist .nm").forEach(n => n.onclick = () => { lab.mapF = +n.dataset.i; $("#selF").value = lab.mapF; syncUI(); pedirMapa(); document.getElementById("mapa").scrollIntoView(); });
+$("#presets").innerHTML = (D.referencias || []).map((r, i) => `<button class="btn" data-i="${i}">${r.nombre}</button>`).join("") + `<button class="btn" data-i="-1">Vaciar</button>`;
+document.querySelectorAll("#presets .btn").forEach(b => b.onclick = () => { lab.ant = lab.res ? lab.res.mu : null; const i = +b.dataset.i; if (i < 0) cargarFormula({}); else cargarFormula(D.referencias[i].filtros, D.referencias[i].vehiculo); });
+
+function syncUI() {
+  document.querySelectorAll(".veh").forEach(b => b.classList.toggle("on", +b.dataset.i === lab.v));
+  document.querySelectorAll("#flist input").forEach(s => { const i = +s.dataset.i; s.value = lab.c[i]; $("#vv" + i).innerHTML = `${fmt(lab.c[i])}<small> / ${FL[i].max}%</small>`; });
+  document.querySelectorAll("#flist .nm").forEach(n => n.classList.toggle("map", +n.dataset.i === lab.mapF));
+}
+let rafLab = 0;
+function recalcular(inmediato) {
+  const run = () => {
+    rafLab = 0;
+    const r = predecir(lab.c, lab.v); r.spf = spfDe(r.mu); r.uva = uvaDe(r.mu); lab.res = r;
+    const carga = lab.c.reduce((a, b) => a + b, 0);
+    $("#spfN").textContent = r.spf < 100 ? fmt(r.spf, 1) : fmt(r.spf, 0);
+    const pasa = 100 / r.spf;
+    $("#say").innerHTML = carga === 0 ? "Sin filtros, la piel recibe toda la radiación." :
+      `De cada <b>100</b> rayos que queman, pasan <b class="grad">${pasa < 10 ? fmt(pasa, 1) : fmt(pasa, 0)}</b>.`;
+    $("#uvaN").textContent = "UVA-PF " + fmt(r.uva, 1);
+    $("#uvaBar").style.width = Math.min(100, 100 * Math.log10(r.uva) / Math.log10(60)) + "%";
+    const bal = r.uva / r.spf;
+    $("#balN").innerHTML = fmt(bal, 2) + (bal >= 1 / 3 ? ' <span style="color:var(--ok)">✓</span>' : ' <span style="color:var(--pink)">bajo</span>');
+    $("#balBar").style.width = Math.min(100, bal * 100) + "%";
+    $("#cargaN").textContent = fmt(carga, 1) + " %";
+    $("#cargaBar").style.width = Math.min(100, carga / D.carga_max_entreno * 100) + "%";
+    const w = $("#warn");
+    if (carga > D.carga_max_entreno) { w.style.display = "block"; w.textContent = `Más de ${D.carga_max_entreno} % de filtros: la IA nunca vio fórmulas así, la predicción es menos confiable.`; }
+    else w.style.display = "none";
+    drawSpec(); pedirMapa();
+  };
+  if (inmediato) run(); else if (!rafLab) rafLab = requestAnimationFrame(run);
+}
+
+/* ---- espectro ---- */
+const spec = $("#spec"); let specHover = -1;
+function drawSpec() {
+  const [g, w, h] = setup(spec), r = lab.res; if (!r) return;
+  const pad = { l: 54, r: 66, t: 22, b: 40 };
+  let top = 1.5; for (let i = 0; i < NL; i++) top = Math.max(top, r.mu[i] + 2 * r.sd[i]); top = Math.ceil(top * 1.05 * 2) / 2;
+  const X = k => pad.l + (w - pad.l - pad.r) * k / (NL - 1), Y = v => h - pad.b - (h - pad.t - pad.b) * Math.max(0, v) / top;
+  const xu = X(iUVA);
+  let gr = g.createLinearGradient(pad.l, 0, xu, 0); gr.addColorStop(0, "rgba(139,92,246,.10)"); gr.addColorStop(1, "rgba(139,92,246,.04)");
+  g.fillStyle = gr; g.fillRect(pad.l, pad.t, xu - pad.l, h - pad.t - pad.b);
+  gr = g.createLinearGradient(xu, 0, w - pad.r, 0); gr.addColorStop(0, "rgba(255,61,139,.04)"); gr.addColorStop(1, "rgba(255,61,139,.10)");
+  g.fillStyle = gr; g.fillRect(xu, pad.t, w - pad.r - xu, h - pad.t - pad.b);
+  g.font = `600 14px ${SANS}`; g.fillStyle = "#6d3fd6"; g.fillText("UVB · quema", pad.l + 10, pad.t + 20);
+  g.fillStyle = "#c21f66"; g.fillText("UVA · envejece y mancha", xu + 10, pad.t + 20);
+  g.font = `12.5px ${MONO}`;
+  for (let v = 0; v <= top + 1e-6; v += top > 4 ? 1 : 0.5) {
+    g.strokeStyle = "rgba(120,110,190,.14)"; g.beginPath(); g.moveTo(pad.l, Y(v)); g.lineTo(w - pad.r, Y(v)); g.stroke();
+    g.fillStyle = "#8f8bb0"; g.fillText(fmt(v, 1), 24, Y(v) + 4);
+    if (Number.isInteger(v) && v > 0) { const q = 100 / 10 ** v; g.fillStyle = "#b27ab8"; g.fillText(`${q >= 1 ? fmt(q, 0) : fmt(q, v - 2)}%`, w - pad.r + 8, Y(v) + 4); }
+  }
+  [290, 300, 320, 340, 360, 380, 400].forEach(l => { g.fillStyle = "#8f8bb0"; g.fillText(l + (l === 400 ? " nm" : ""), X(l - 290) - 12, h - pad.b + 20); });
+  g.save(); g.translate(12, h / 2 + 100); g.rotate(-Math.PI / 2); g.fillStyle = "#6c6a8a"; g.font = `13px ${SANS}`; g.fillText("Absorbancia (qué tanto bloquea)", 0, 0); g.restore();
+  g.save(); g.translate(w - 10, h / 2 - 70); g.rotate(Math.PI / 2); g.fillStyle = "#b27ab8"; g.font = `13px ${SANS}`; g.fillText("% de esa luz que pasa", 0, 0); g.restore();
+  g.beginPath(); for (let k = 0; k < NL; k++) g.lineTo(X(k), Y(r.mu[k] + 2 * r.sd[k])); for (let k = NL - 1; k >= 0; k--) g.lineTo(X(k), Y(r.mu[k] - 2 * r.sd[k])); g.closePath();
+  gr = g.createLinearGradient(pad.l, 0, w - pad.r, 0); gr.addColorStop(0, "rgba(34,195,238,.20)"); gr.addColorStop(.5, "rgba(139,92,246,.20)"); gr.addColorStop(1, "rgba(255,61,139,.20)"); g.fillStyle = gr; g.fill();
+  g.beginPath(); g.moveTo(X(0), Y(0)); for (let k = 0; k < NL; k++) g.lineTo(X(k), Y(r.mu[k])); g.lineTo(X(NL - 1), Y(0)); g.closePath();
+  gr = g.createLinearGradient(0, pad.t, 0, h - pad.b); gr.addColorStop(0, "rgba(139,92,246,.22)"); gr.addColorStop(1, "rgba(139,92,246,0)"); g.fillStyle = gr; g.fill();
+  if (lab.ant) { g.setLineDash([5, 5]); g.strokeStyle = "#b9b3e0"; g.lineWidth = 1.8; g.beginPath(); lab.ant.forEach((v, k) => k ? g.lineTo(X(k), Y(v)) : g.moveTo(X(k), Y(v))); g.stroke(); g.setLineDash([]); }
+  gr = g.createLinearGradient(pad.l, 0, w - pad.r, 0); gr.addColorStop(0, "#22c3ee"); gr.addColorStop(.45, "#8b5cf6"); gr.addColorStop(1, "#ff3d8b");
+  g.strokeStyle = gr; g.lineWidth = 3.2; g.shadowColor = "rgba(139,92,246,.55)"; g.shadowBlur = 14;
+  g.beginPath(); for (let k = 0; k < NL; k++) k ? g.lineTo(X(k), Y(r.mu[k])) : g.moveTo(X(k), Y(r.mu[k])); g.stroke(); g.shadowBlur = 0;
+  if (specHover >= 0) {
+    const k = specHover, x = X(k), y = Y(r.mu[k]);
+    g.strokeStyle = "rgba(23,22,43,.35)"; g.lineWidth = 1; g.setLineDash([3, 4]); g.beginPath(); g.moveTo(x, pad.t); g.lineTo(x, h - pad.b); g.stroke(); g.setLineDash([]);
+    g.fillStyle = "#fff"; g.beginPath(); g.arc(x, y, 6, 0, 7); g.fill(); g.strokeStyle = rgba(lerpColor(k / (NL - 1)), 1); g.lineWidth = 3; g.stroke();
+  }
+  spec._pad = pad;
+}
+spec.onmousemove = e => {
+  const r = lab.res, b = spec.getBoundingClientRect(), pad = spec._pad; if (!r || !pad) return;
+  const k = Math.round((e.clientX - b.left - pad.l) / (b.width - pad.l - pad.r) * (NL - 1));
+  if (k < 0 || k >= NL) { specHover = -1; hideTip(); drawSpec(); return; }
+  specHover = k; drawSpec();
+  const A = r.mu[k], pasa = 100 * 10 ** (-A), banda = L[k] < 320 ? "UVB, la que quema" : "UVA, la que envejece";
+  showTip(e, `<span class="m">${L[k]} nm · luz ${banda}</span><br>Absorbancia <b>${fmt(A, 2)}</b> → bloquea el <b>${fmt(100 - pasa, pasa < 1 ? 2 : 1)} %</b><br>pasa ${pasa < 0.1 ? "menos del 0.1" : fmt(pasa, 1)} % de esta luz <span class="m">(±${fmt(2 * r.sd[k], 2)})</span>`);
+};
+spec.onmouseleave = () => { specHover = -1; hideTip(); drawSpec(); };
+
+/* ---- rayos de sol ---- */
+const rays = $("#rays"); const parts = [];
+function drawRays(t) {
+  const [g, w, h] = setup(rays), r = lab.res;
+  const yC = h * 0.52, yS = h * 0.82, sx = w * 0.16, sy = h * 0.14;
+  let gr = g.createRadialGradient(sx, sy, 2, sx, sy, 46); gr.addColorStop(0, "rgba(255,200,90,.95)"); gr.addColorStop(.4, "rgba(255,120,160,.45)"); gr.addColorStop(1, "rgba(255,61,139,0)");
+  g.fillStyle = gr; g.beginPath(); g.arc(sx, sy, 46, 0, 7); g.fill();
+  gr = g.createLinearGradient(0, yC - 14, 0, yC + 14); gr.addColorStop(0, "rgba(139,92,246,0)"); gr.addColorStop(.5, "rgba(139,92,246,.28)"); gr.addColorStop(1, "rgba(139,92,246,0)");
+  g.fillStyle = gr; g.fillRect(0, yC - 14, w, 28);
+  g.strokeStyle = "rgba(139,92,246,.5)"; g.lineWidth = 1; g.beginPath();
+  for (let x = 0; x <= w; x += 6) g.lineTo(x, yC + 3 * Math.sin(x * 0.05 + t * 0.002)); g.stroke();
+  gr = g.createLinearGradient(0, yS, 0, h); gr.addColorStop(0, "#f7c9b1"); gr.addColorStop(1, "#e9a98d"); g.fillStyle = gr; g.fillRect(0, yS, w, h - yS);
+  g.font = `600 12.5px ${SANS}`; g.fillStyle = "#6d3fd6"; g.fillText("tu protector", w - 92, yC - 18); g.fillStyle = "#9a4f37"; g.fillText("piel", w - 40, h - 10);
+  if (r) {
+    const pB = Math.min(1, 1 / r.spf), pA = Math.min(1, 1 / r.uva);
+    for (let n = 0; n < 3; n++) {
+      const uvb = Math.random() < 0.55;
+      parts.push({ x: sx + (Math.random() - .3) * 30, y: sy, vx: 0.9 + Math.random() * 2.4, vy: 2.4 + Math.random() * 1.2, uvb, pasa: Math.random() < (uvb ? pB : pA), st: 0, life: 1 });
+    }
+  }
+  for (let i = parts.length - 1; i >= 0; i--) {
+    const p = parts[i];
+    if (p.st === 0) { p.x += p.vx; p.y += p.vy; if (p.y >= yC) p.st = p.pasa ? 2 : 1; }
+    else if (p.st === 2) { p.x += p.vx; p.y += p.vy; if (p.y > yS) p.st = 3; }
+    else p.life -= p.st === 3 ? 0.03 : 0.06;
+    const c = p.uvb ? [139, 92, 246] : [255, 61, 139];
+    if (p.st === 0 || p.st === 2) { g.strokeStyle = rgba(c, .85); g.lineWidth = 2; g.beginPath(); g.moveTo(p.x - p.vx * 4, p.y - p.vy * 4); g.lineTo(p.x, p.y); g.stroke(); }
+    else { g.fillStyle = rgba(p.st === 3 ? [255, 90, 40] : c, Math.max(0, p.life) * .7); g.beginPath(); g.arc(p.x, p.st === 3 ? yS + 4 : yC, (1 - p.life) * (p.st === 3 ? 14 : 8) + 1, 0, 7); g.fill(); }
+    if (p.life <= 0 || p.x > w + 10) parts.splice(i, 1);
+  }
+  g.font = `600 12.5px ${SANS}`; g.fillStyle = "#8b5cf6"; g.fillText("— UVB", w - 120, 16); g.fillStyle = "#ff3d8b"; g.fillText("— UVA", w - 60, 16);
+}
+
+/* =================== mapa 3D =================== */
+$("#selF").innerHTML = FL.map((f, i) => `<option value="${i}">${f.nombre} (${f.banda})</option>`).join("");
+$("#selF").onchange = e => { lab.mapF = +e.target.value; syncUI(); pedirMapa(); };
+let mapY = "spf";
+document.querySelectorAll("#selY button").forEach(b => b.onclick = () => { document.querySelectorAll("#selY button").forEach(x => x.classList.remove("on")); b.classList.add("on"); mapY = b.dataset.k; pedirMapa(); });
+const NX = 26; let mapa = null, rafMapa = 0;
+function pedirMapa() { if (!rafMapa) rafMapa = requestAnimationFrame(() => { rafMapa = 0; calcMapa(); }); }
+function calcMapa() {
+  const f = lab.mapF, NV = D.vehiculos.length, c = Float32Array.from(lab.c), vals = [];
+  for (let v = 0; v < NV; v++) {
+    const fila = [];
+    for (let i = 0; i < NX; i++) {
+      c[f] = FL[f].max * i / (NX - 1);
+      const r = predecir(c, v), s = spfDe(r.mu);
+      const y = mapY === "spf" ? s : mapY === "pasa" ? 100 / s : mapY === "absB" ? mediaAbs(r.mu, 0, iUVA) : mediaAbs(r.mu, iUVA, NL);
+      fila.push({ conc: c[f], y, spf: s, uva: uvaDe(r.mu) });
+    }
+    vals.push(fila);
+  }
+  const tf = y => mapY === "spf" ? Math.log10(Math.max(1, y)) : y;
+  let hi = -Infinity; vals.flat().forEach(p => { hi = Math.max(hi, tf(p.y)); });
+  mapa = { vals, lo: 0, hi: hi > 0 ? hi : 1, tf };
+}
+const cam = { yaw: -0.65, pitch: 0.5 }, camL = { yaw: -0.62, pitch: 0.42, auto: true };
+function proj3(x, y, z, cx, cy, S, c) {
+  const cy_ = Math.cos(c.yaw), sy_ = Math.sin(c.yaw), cp = Math.cos(c.pitch), sp_ = Math.sin(c.pitch);
+  const x1 = x * cy_ - z * sy_, z1 = x * sy_ + z * cy_;
+  const y2 = y * cp + z1 * sp_, z2 = z1 * cp - y * sp_;
+  const f = 4.2 / (4.2 + z2);
+  return [cx + x1 * S * f, cy - y2 * S * f, z2];
+}
+function dragRotate(cv, c) {
+  let d = null;
+  cv.addEventListener("pointerdown", e => { d = { x: e.clientX, y: e.clientY, yaw: c.yaw, pitch: c.pitch, moved: false }; cv.setPointerCapture(e.pointerId); cv.style.cursor = "grabbing"; });
+  cv.addEventListener("pointermove", e => { if (!d) return; const dx = e.clientX - d.x, dy = e.clientY - d.y; if (Math.abs(dx) + Math.abs(dy) > 4) { d.moved = true; c.auto = false; } c.yaw = d.yaw + dx * 0.008; c.pitch = Math.max(0.05, Math.min(1.35, d.pitch + dy * 0.006)); });
+  cv.addEventListener("pointerup", () => { cv._clickOk = d && !d.moved; d = null; cv.style.cursor = "grab"; });
+  cv.style.cursor = "grab";
+}
+const mapCv = $("#mapa3d"); let mapHover = null, mapPts = [];
+dragRotate(mapCv, cam);
+function drawMapa() {
+  const [g, w, h] = setup(mapCv); if (!mapa) return;
+  const S = Math.min(w * 0.3, h * 0.46), cx = w * 0.48, cy = h * 0.64, NV = mapa.vals.length;
+  const P3 = (x, y, z) => proj3(x, y, z, cx, cy, S, cam);
+  const yN = p => 0.95 * (mapa.tf(p.y) - mapa.lo) / (mapa.hi - mapa.lo);
+  const zOf = v => -0.85 + 1.7 * v / Math.max(1, NV - 1);
+  g.lineWidth = 1; g.strokeStyle = "rgba(120,110,190,.16)";
+  for (let i = 0; i <= 10; i++) { const x = -1 + 2 * i / 10, a = P3(x, 0, -1), b = P3(x, 0, 1); g.beginPath(); g.moveTo(a[0], a[1]); g.lineTo(b[0], b[1]); g.stroke(); }
+  for (let i = 0; i <= 6; i++) { const z = -1 + 2 * i / 6, a = P3(-1, 0, z), b = P3(1, 0, z); g.beginPath(); g.moveTo(a[0], a[1]); g.lineTo(b[0], b[1]); g.stroke(); }
+  const ax = P3(-1, 0, -1), ay = P3(-1, 1, -1);
+  g.strokeStyle = "rgba(120,110,190,.35)"; g.beginPath(); g.moveTo(ax[0], ax[1]); g.lineTo(ay[0], ay[1]); g.stroke();
+  g.font = `12.5px ${MONO}`;
+  for (let i = 0; i <= 4; i++) {
+    const yy = i / 4 * 0.95, val = mapa.lo + (mapa.hi - mapa.lo) * i / 4, p = P3(-1, yy, -1), q = P3(1, yy, -1);
+    const t_ = mapY === "spf" ? fmt(10 ** val, 0) : mapY === "pasa" ? fmt(val, 0) + "%" : fmt(val, 2);
+    g.strokeStyle = "rgba(120,110,190,.10)"; g.beginPath(); g.moveTo(p[0], p[1]); g.lineTo(q[0], q[1]); g.stroke();
+    g.fillStyle = "#8f8bb0"; g.fillText(t_, p[0] - 42, p[1] + 4);
+  }
+  const ttl = { spf: "SPF", pasa: "% UVB que pasa", absB: "absorbancia UVB", absA: "absorbancia UVA" }[mapY];
+  g.font = `600 14px ${SANS}`; g.fillStyle = "#4f4d72"; g.fillText(ttl + " ↑", ay[0] - 30, ay[1] - 14);
+  g.font = `12.5px ${MONO}`; g.fillStyle = "#8f8bb0";
+  [0, .25, .5, .75, 1].forEach(t => { const p = P3(-1 + 2 * t, 0, -1.12); g.fillText(fmt(FL[lab.mapF].max * t, 1) + "%", p[0] - 14, p[1] + 16); });
+  const xl = P3(0, 0, -1.36); g.font = `600 14px ${SANS}`; g.fillStyle = "#4f4d72"; g.fillText(FL[lab.mapF].nombre + " →", xl[0] - 60, xl[1] + 20);
+  const orden = mapa.vals.map((f, v) => ({ f, v, d: P3(0, 0, zOf(v))[2] })).sort((a, b) => b.d - a.d);
+  mapPts = [];
+  const tc = lab.c[lab.mapF] / FL[lab.mapF].max, ii = Math.round(tc * (NX - 1));
+  for (const { f, v } of orden) {
+    const z = zOf(v), col = lerpColor(v / Math.max(1, NV - 1)), sel = v === lab.v;
+    const pts = f.map((p, i) => P3(-1 + 2 * i / (NX - 1), yN(p), z));
+    const b0 = P3(-1, 0, z), b1 = P3(1, 0, z), topY = Math.min(...pts.map(p => p[1]));
+    const gr = g.createLinearGradient(0, topY, 0, Math.max(b0[1], b1[1]));
+    gr.addColorStop(0, rgba(col, sel ? .55 : .32)); gr.addColorStop(1, rgba(col, .04));
+    g.beginPath(); g.moveTo(b0[0], b0[1]); pts.forEach(p => g.lineTo(p[0], p[1])); g.lineTo(b1[0], b1[1]); g.closePath(); g.fillStyle = gr; g.fill();
+    g.lineWidth = 1; for (let i = 0; i < NX; i++) { const bp = P3(-1 + 2 * i / (NX - 1), 0, z); g.strokeStyle = rgba(col, .14); g.beginPath(); g.moveTo(bp[0], bp[1]); g.lineTo(pts[i][0], pts[i][1]); g.stroke(); }
+    g.strokeStyle = rgba(col, 1); g.lineWidth = sel ? 3.2 : 2; g.shadowColor = rgba(col, .7); g.shadowBlur = sel ? 14 : 6;
+    g.beginPath(); pts.forEach((p, i) => i ? g.lineTo(p[0], p[1]) : g.moveTo(p[0], p[1])); g.stroke(); g.shadowBlur = 0;
+    pts.forEach((p, i) => { g.fillStyle = "#fff"; g.beginPath(); g.arc(p[0], p[1], 2.6, 0, 7); g.fill(); g.strokeStyle = rgba(col, 1); g.lineWidth = 1.4; g.stroke(); mapPts.push({ x: p[0], y: p[1], v, i, p: f[i] }); });
+    const mp = pts[ii];
+    g.fillStyle = rgba(col, 1); g.beginPath(); g.arc(mp[0], mp[1], sel ? 7.5 : 5, 0, 7); g.fill(); g.strokeStyle = "#fff"; g.lineWidth = 2; g.stroke();
+    const lp = P3(1.08, 0, z); g.font = `${sel ? "700" : "500"} 14px ${SANS}`; g.fillStyle = sel ? "#17162b" : "#6c6a8a"; g.fillText(vname(D.vehiculos[v]), lp[0] + 4, lp[1] + 4);
+  }
+  if (mapHover) { g.strokeStyle = "rgba(23,22,43,.55)"; g.lineWidth = 1.5; g.beginPath(); g.arc(mapHover.x, mapHover.y, 10, 0, 7); g.stroke(); }
+}
+mapCv.addEventListener("mousemove", e => {
+  const b = mapCv.getBoundingClientRect(), mx = e.clientX - b.left, my = e.clientY - b.top;
+  let best = null, bd = 16 * 16;
+  for (const p of mapPts) { const d = (p.x - mx) ** 2 + (p.y - my) ** 2; if (d < bd) { bd = d; best = p; } }
+  mapHover = best;
+  if (best) { const q = best.p, f = FL[lab.mapF];
+    showTip(e, `<span class="m">${vname(D.vehiculos[best.v])}</span><br>${f.nombre} <b>${fmt(q.conc, 1)} %</b><br>SPF <b>${fmt(q.spf, 1)}</b> · pasan ${fmt(100 / q.spf, 1)} de cada 100 rayos UVB<br><span class="m">UVA-PF ${fmt(q.uva, 1)} · clic para usar esta dosis</span>`);
+  } else hideTip();
+});
+mapCv.addEventListener("mouseleave", () => { mapHover = null; hideTip(); });
+mapCv.addEventListener("click", () => { if (mapCv._clickOk && mapHover) { lab.ant = lab.res ? lab.res.mu : null; lab.c[lab.mapF] = mapHover.p.conc; lab.v = mapHover.v; syncUI(); recalcular(true); } });
+
+/* =================== técnica =================== */
+$("#tecLead").textContent = `La entrenamos con ${D.n_train.toLocaleString("es-MX")} fórmulas (práctica) y la examinamos con ${D.n_val.toLocaleString("es-MX")} que nunca vio (examen). Si le va igual en las dos, entendió la física en lugar de memorizar.`;
+const gap = mv.err_spf / Math.max(mt.err_spf, 1e-9);
+$("#kpis").innerHTML = [
+  ["Precisión en fórmulas nuevas", fmt(mv.r2, 3), "R²", `1.0 sería perfecto · práctica <b>${fmt(mt.r2, 3)}</b>`],
+  ["Error típico de SPF", pct(mv.err_spf), "%", `en el examen · práctica <b>${pct(mt.err_spf)} %</b>`],
+  ["Confianza calibrada", pct(mv.cobertura_2s), "%", `mediciones dentro de su rango · ideal <b>95 %</b>`],
+  ["¿Memorizó?", gap < 1.15 ? "No" : "Algo", "", `error examen / práctica = <b>${fmt(gap, 2)}×</b>`],
+  ["Entrenamiento", fmt(H.reduce((a, x) => a + (x.segundos || 0), 0), 0), "s", `${H.length} épocas en ${D.gpu}`],
+].map(k => `<div class="kpi"><div class="lab">${k[0]}</div><div class="val">${k[1]}<small>${k[2]}</small></div><div class="sub">${k[3]}</div></div>`).join("");
+$("#vehErr").innerHTML = D.por_vehiculo.map(v => `<div><div class="k">${vname(v.vehiculo)}</div><div class="v">${pct(v.err_spf)}<small style="font-size:14px;color:#6c6a8a"> %</small></div><div class="track" style="height:6px"><i style="width:${Math.min(100, v.err_spf * 400)}%"></i></div></div>`).join("");
+$("#foot").textContent = `SPF·MODEL · generado ${new Date().toLocaleString("es-MX")}`;
+
+/* ---- paisaje de validación ---- */
+const land = $("#land"); let landSel = Math.round(M.length * 0.62), landHover = -1, landPts = [];
+dragRotate(land, camL);
+const amax = (() => { const v = M.flatMap(m => m.mu).sort((a, b) => a - b); return v[Math.floor(v.length * 0.985)] || 1; })();
+function drawLand(t) {
+  const [g, w, h] = setup(land);
+  if (camL.auto) camL.yaw = -0.62 + 0.16 * Math.sin(t * 0.00018);
+  const S = Math.min(w * 0.34, h * 0.42), cx = w * 0.52, cy = h * 0.55;
+  const P3 = (x, y, z) => proj3(x, y * 0.85, z, cx, cy, S, camL);
+  g.lineWidth = 1; g.strokeStyle = "rgba(120,110,190,.13)";
+  for (let i = 0; i <= 12; i++) { const x = -1 + 2 * i / 12, a = P3(x, 0, -1.05), b = P3(x, 0, 1.05); g.beginPath(); g.moveTo(a[0], a[1]); g.lineTo(b[0], b[1]); g.stroke(); }
+  for (let i = 0; i <= 8; i++) { const z = -1.05 + 2.1 * i / 8, a = P3(-1, 0, z), b = P3(1, 0, z); g.beginPath(); g.moveTo(a[0], a[1]); g.lineTo(b[0], b[1]); g.stroke(); }
+  g.font = `12.5px ${MONO}`; g.fillStyle = "#8f8bb0";
+  [290, 320, 350, 400].forEach(l => { const p = P3(-1 + 2 * (l - 290) / 110, 0, -1.15); g.fillText(l + " nm", p[0] - 18, p[1] + 16); });
+  g.font = `600 13px ${SANS}`; g.fillStyle = "#6c6a8a";
+  const pz = P3(1.12, 0, 0.9); g.fillText("más SPF", pz[0], pz[1]); const pz2 = P3(1.12, 0, -0.9); g.fillText("menos SPF", pz2[0], pz2[1]);
+  const rows = M.map((m, i) => { const z = -1 + 2 * i / (M.length - 1); return { m, i, z, d: P3(0, 0, z)[2] }; }).sort((a, b) => b.d - a.d);
+  landPts = [];
+  for (const r of rows) {
+    const col = lerpColor(r.i / (M.length - 1)), hi_ = r.i === landHover || r.i === landSel;
+    const pts = r.m.mu.map((a, k) => P3(-1 + 2 * k / (NL - 1), Math.min(a / amax, 1.25), r.z));
+    const b0 = P3(-1, 0, r.z), b1 = P3(1, 0, r.z), top = Math.min(...pts.map(p => p[1]));
+    const gr = g.createLinearGradient(0, top, 0, Math.max(b0[1], b1[1]));
+    gr.addColorStop(0, rgba(col, hi_ ? .55 : .24)); gr.addColorStop(1, rgba(col, .02));
+    g.beginPath(); g.moveTo(b0[0], b0[1]); pts.forEach(p => g.lineTo(p[0], p[1])); g.lineTo(b1[0], b1[1]); g.closePath(); g.fillStyle = gr; g.fill();
+    g.beginPath(); pts.forEach((p, k) => k ? g.lineTo(p[0], p[1]) : g.moveTo(p[0], p[1]));
+    g.strokeStyle = rgba(col, hi_ ? 1 : .8); g.lineWidth = hi_ ? 2.6 : 1; if (hi_) { g.shadowColor = rgba(col, .8); g.shadowBlur = 14; } g.stroke(); g.shadowBlur = 0;
+    for (let k = 0; k < NL; k += hi_ ? 3 : 9) { const p = P3(-1 + 2 * k / (NL - 1), Math.min(r.m.medido[k] / amax, 1.25), r.z); g.fillStyle = rgba(col, hi_ ? 1 : .5); g.beginPath(); g.arc(p[0], p[1], hi_ ? 2.6 : 1.3, 0, 7); g.fill(); }
+    for (let k = 0; k < NL; k += 6) landPts.push({ x: pts[k][0], y: pts[k][1], i: r.i });
+    if (r.i === landSel) {
+      const pk = pts.reduce((a, p) => p[1] < a[1] ? p : a);
+      g.strokeStyle = rgba(col, .7); g.lineWidth = 1; g.setLineDash([3, 4]); g.beginPath(); g.moveTo(pk[0], pk[1]); g.lineTo(pk[0] + 30, pk[1] - 36); g.lineTo(pk[0] + 230, pk[1] - 36); g.stroke(); g.setLineDash([]);
+      g.fillStyle = "#17162b"; g.font = `600 14px ${SANS}`; g.fillText(`SPF ${r.m.spf_pred} predicho · ${r.m.spf_real} medido`, pk[0] + 34, pk[1] - 42);
+    }
+  }
+  for (let i = 0; i < 40; i++) {
+    const x = (Math.sin(i * 12.9898) * 43758.5453) % 1, z = (Math.sin(i * 78.233) * 12543.123) % 1, y = 0.95 + 0.35 * Math.sin(t * 0.0006 + i);
+    const p = P3(x, y, z); g.fillStyle = rgba(lerpColor(Math.abs(z)), .35); g.beginPath(); g.arc(p[0], p[1], 1.6 + (i % 3), 0, 7); g.fill();
+  }
+}
+land.addEventListener("mousemove", e => {
+  const b = land.getBoundingClientRect(), mx = e.clientX - b.left, my = e.clientY - b.top;
+  let best = -1, bd = 14 * 14;
+  for (const p of landPts) { const d = (p.x - mx) ** 2 + (p.y - my) ** 2; if (d < bd) { bd = d; best = p.i; } }
+  landHover = best;
+  if (best >= 0) {
+    const m = M[best], err = (m.spf_pred / m.spf_real - 1) * 100;
+    const rec = Object.entries(m.receta).sort((a, b) => b[1] - a[1]).map(([k, v]) => `${(FL.find(f => f.id === k) || { nombre: k }).nombre} ${v}%`).join(" · ");
+    showTip(e, `<span class="m">${vname(m.vehiculo)}</span><br>SPF predicho <b>${m.spf_pred}</b> · medido <b>${m.spf_real}</b> <span class="m">(${err >= 0 ? "+" : ""}${fmt(err, 1)} %)</span><br><span class="m">${rec}</span><br><span class="m">clic → cargar en el laboratorio</span>`);
+  } else hideTip();
+});
+land.addEventListener("mouseleave", () => { landHover = -1; hideTip(); });
+land.addEventListener("click", () => {
+  if (land._clickOk && landHover >= 0) { landSel = landHover; const m = M[landHover]; lab.ant = lab.res ? lab.res.mu : null; cargarFormula(m.receta, m.vehiculo); document.getElementById("lab").scrollIntoView(); }
+});
+
+/* ---- curvas ---- */
+let curvaK = "err_spf";
+function drawCurvas(prog = 1) {
+  const cv = $("#curvas"), [g, w, h] = setup(cv), pad = { l: 58, r: 14, t: 14, b: 30 };
+  const tr = H.map(x => x[curvaK + "_train"]), va = H.map(x => x[curvaK + "_val"]);
+  const logy = curvaK === "err_spf", tf = v => logy ? Math.log10(Math.max(v, 1e-6)) : v;
+  const all = tr.concat(va).map(tf); let lo = Math.min(...all), hi = Math.max(...all);
+  const span = (hi - lo) || 1; lo -= span * .06; hi += span * .06;
+  const X = i => pad.l + (w - pad.l - pad.r) * (H.length > 1 ? i / (H.length - 1) : .5), Y = v => pad.t + (h - pad.t - pad.b) * (1 - (tf(v) - lo) / (hi - lo));
+  g.font = `12.5px ${MONO}`;
+  for (let i = 0; i <= 4; i++) {
+    const yy = pad.t + (h - pad.t - pad.b) * i / 4, val = hi - (hi - lo) * i / 4;
+    g.strokeStyle = "rgba(120,110,190,.12)"; g.beginPath(); g.moveTo(pad.l, yy); g.lineTo(w - pad.r, yy); g.stroke();
+    g.fillStyle = "#8f8bb0"; g.fillText(logy ? (100 * 10 ** val).toFixed(1) + "%" : val.toFixed(3), 4, yy + 4);
+  }
+  const stp = Math.ceil(H.length / 8); H.forEach((x, i) => { if (i % stp === 0 || (i === H.length - 1 && i % stp >= stp / 2)) { g.fillStyle = "#8f8bb0"; g.fillText(x.epoca, X(i) - 5, h - 8); } });
+  if (D.mejor_epoca) { const bx = X(D.mejor_epoca - 1); g.strokeStyle = "#c9c4e8"; g.setLineDash([3, 4]); g.beginPath(); g.moveTo(bx, pad.t); g.lineTo(bx, h - pad.b); g.stroke(); g.setLineDash([]); }
+  const n = Math.max(2, Math.ceil(H.length * prog));
+  const line = (arr, c0, c1) => {
+    const gr = g.createLinearGradient(pad.l, 0, w - pad.r, 0); gr.addColorStop(0, c0); gr.addColorStop(1, c1);
+    const ar = g.createLinearGradient(0, pad.t, 0, h - pad.b); ar.addColorStop(0, c1 + "33"); ar.addColorStop(1, c1 + "00");
+    g.beginPath(); arr.slice(0, n).forEach((v, i) => i ? g.lineTo(X(i), Y(v)) : g.moveTo(X(i), Y(v))); g.lineTo(X(n - 1), h - pad.b); g.lineTo(X(0), h - pad.b); g.closePath(); g.fillStyle = ar; g.fill();
+    g.beginPath(); arr.slice(0, n).forEach((v, i) => i ? g.lineTo(X(i), Y(v)) : g.moveTo(X(i), Y(v)));
+    g.strokeStyle = gr; g.lineWidth = 2.6; g.shadowColor = c1; g.shadowBlur = 10; g.stroke(); g.shadowBlur = 0;
+    arr.slice(0, n).forEach((v, i) => { g.fillStyle = "#fff"; g.beginPath(); g.arc(X(i), Y(v), 3, 0, 7); g.fill(); g.strokeStyle = c1; g.lineWidth = 1.5; g.stroke(); });
+  };
+  line(tr, "#22c3ee", "#4f7cff"); line(va, "#d946ef", "#ff3d8b");
+  cv._pad = pad;
+}
+$("#curvas").addEventListener("mousemove", e => {
+  const cv = $("#curvas"), b = cv.getBoundingClientRect(), pad = cv._pad; if (!pad) return;
+  const i = Math.round((e.clientX - b.left - pad.l) / (b.width - pad.l - pad.r) * (H.length - 1)); if (i < 0 || i >= H.length) return hideTip();
+  const x = H[i], f = curvaK === "err_spf" ? v => pct(v) + " %" : v => fmt(v, 4);
+  showTip(e, `<span class="m">época ${x.epoca}</span><br>práctica <b>${f(x[curvaK + "_train"])}</b><br>examen <b>${f(x[curvaK + "_val"])}</b>`);
+});
+$("#curvas").addEventListener("mouseleave", hideTip);
+document.querySelectorAll(".tab").forEach(b => b.onclick = () => { document.querySelectorAll(".tab").forEach(x => x.classList.remove("on")); b.classList.add("on"); curvaK = b.dataset.k; animar(drawCurvas, 700); });
+
+/* ---- dispersión ---- */
+const S_ = D.dispersion; let dispPts = [];
+function drawDisp() {
+  const [g, w, h] = setup($("#disp")), pad = { l: 46, r: 14, t: 10, b: 30 };
+  const vals = S_.train_real.concat(S_.val_real, S_.train_pred, S_.val_pred).filter(v => v > 0);
+  const lo = Math.log10(Math.max(1, Math.min(...vals))), hi = Math.log10(Math.max(...vals)) + .05;
+  const X = v => pad.l + (w - pad.l - pad.r) * (Math.log10(v) - lo) / (hi - lo), Y = v => h - pad.b - (h - pad.t - pad.b) * (Math.log10(v) - lo) / (hi - lo);
+  g.font = `12.5px ${MONO}`;
+  [1, 2, 5, 10, 20, 50, 100, 200, 500].forEach(t => { const lt = Math.log10(t); if (lt < lo || lt > hi) return;
+    g.strokeStyle = "rgba(120,110,190,.12)"; g.beginPath(); g.moveTo(X(t), pad.t); g.lineTo(X(t), h - pad.b); g.moveTo(pad.l, Y(t)); g.lineTo(w - pad.r, Y(t)); g.stroke();
+    g.fillStyle = "#8f8bb0"; g.fillText(t, X(t) - 6, h - 10); g.fillText(t, 10, Y(t) + 4); });
+  const a = 10 ** lo, b = 10 ** hi;
+  g.beginPath(); g.moveTo(X(a), Y(a * 1.1)); g.lineTo(X(b / 1.1), Y(b)); g.lineTo(X(b), Y(b)); g.lineTo(X(b), Y(b / 1.1)); g.lineTo(X(a * 1.1), Y(a)); g.lineTo(X(a), Y(a)); g.closePath(); g.fillStyle = "rgba(139,92,246,.09)"; g.fill();
+  const gr = g.createLinearGradient(X(a), Y(a), X(b), Y(b)); gr.addColorStop(0, "#22c3ee"); gr.addColorStop(1, "#ff3d8b"); g.strokeStyle = gr; g.lineWidth = 1.6; g.beginPath(); g.moveTo(X(a), Y(a)); g.lineTo(X(b), Y(b)); g.stroke();
+  dispPts = [];
+  const pts = (rr, pp, c, al, tag) => { g.fillStyle = rgba(c, al); for (let i = 0; i < rr.length; i++) { if (rr[i] <= 0 || pp[i] <= 0) continue; const x = X(rr[i]), y = Y(pp[i]); g.beginPath(); g.arc(x, y, 1.9, 0, 7); g.fill(); if (i % 2 === 0) dispPts.push({ x, y, r: rr[i], p: pp[i], tag }); } };
+  pts(S_.train_real, S_.train_pred, hex("#4f7cff"), .28, "práctica"); pts(S_.val_real, S_.val_pred, hex("#ff3d8b"), .38, "examen");
+  g.font = `13px ${SANS}`; g.fillStyle = "#6c6a8a"; g.fillText("SPF medido →", w - 104, h - 36);
+  g.save(); g.translate(pad.l + 14, pad.t + 96); g.rotate(-Math.PI / 2); g.fillText("SPF predicho →", 0, 0); g.restore();
+}
+$("#disp").addEventListener("mousemove", e => {
+  const b = $("#disp").getBoundingClientRect(), mx = e.clientX - b.left, my = e.clientY - b.top; let best = null, bd = 100;
+  for (const p of dispPts) { const d = (p.x - mx) ** 2 + (p.y - my) ** 2; if (d < bd) { bd = d; best = p; } }
+  if (best) showTip(e, `<span class="m">${best.tag}</span><br>medido <b>${fmt(best.r, 1)}</b> · predicho <b>${fmt(best.p, 1)}</b><br><span class="m">${fmt((best.p / best.r - 1) * 100, 1)} %</span>`); else hideTip();
+});
+$("#disp").addEventListener("mouseleave", hideTip);
+
+/* ---- residuos 3D ---- */
+let resBins = [];
+function drawRes(prog = 1) {
+  const [g, w, h] = setup($("#res")), R = D.residuos, nb = R.val.length, maxv = Math.max(...R.train, ...R.val);
+  const left = 44, right = w - 52, base = h - 46, step = (right - left) / nb, bw = step * .78, ox = 24, oy = 18, Hmax = h * 0.6;
+  g.fillStyle = "rgba(139,92,246,.05)"; g.beginPath(); g.moveTo(left - 6, base + 6); g.lineTo(right + 4, base + 6); g.lineTo(right + 4 + ox * 2.4, base + 6 - oy * 2.4); g.lineTo(left - 6 + ox * 2.4, base + 6 - oy * 2.4); g.closePath(); g.fill();
+  const box = (x, y0, hgt, c) => {
+    const top = y0 - hgt, dx = 7.7, dy = 5.6;
+    g.fillStyle = rgba(c.map(v => Math.round(v * .78)), .92); g.beginPath(); g.moveTo(x + bw, y0); g.lineTo(x + bw + dx, y0 - dy); g.lineTo(x + bw + dx, top - dy); g.lineTo(x + bw, top); g.closePath(); g.fill();
+    const fg = g.createLinearGradient(0, top, 0, y0); fg.addColorStop(0, rgba(c, .95)); fg.addColorStop(1, rgba(c, .55)); g.fillStyle = fg; g.fillRect(x, top, bw, hgt);
+    g.fillStyle = rgba(c.map(v => Math.min(255, v + 60)), .95); g.beginPath(); g.moveTo(x, top); g.lineTo(x + bw, top); g.lineTo(x + bw + dx, top - dy); g.lineTo(x + dx, top - dy); g.closePath(); g.fill();
+  };
+  resBins = [];
+  const fila = (arr, off, c0, c1) => arr.forEach((v, i) => {
+    const hgt = Math.max(1, Hmax * v / maxv * prog), t = i / (nb - 1), c = hex(c0).map((a, k) => Math.round(a + (hex(c1)[k] - a) * t));
+    const x = left + i * step + ox * off, y0 = base - oy * off; box(x, y0, hgt, c); resBins.push({ x, x1: x + bw, y: y0 - hgt, y0, i });
+  });
+  fila(R.train, 2.1, "#22c3ee", "#4f7cff"); fila(R.val, 0, "#d946ef", "#ff3d8b");
+  g.font = `12.5px ${MONO}`; g.fillStyle = "#8f8bb0";
+  [-0.3, -0.15, 0, 0.15, 0.3].forEach(v => { const x = left + (v + 0.3) / 0.6 * (right - left); g.fillText(fmt((Math.exp(v) - 1) * 100, 0) + "%", x - 14, base + 24); });
+  g.font = `600 13px ${SANS}`; g.fillStyle = "#4f7cff"; g.fillText("práctica", left + ox * 2.1 - 4, base - oy * 2.1 - 10);
+  g.fillStyle = "#ff3d8b"; g.fillText("examen", left - 4, base + 42);
+}
+$("#res").addEventListener("mousemove", e => {
+  const b = $("#res").getBoundingClientRect(), mx = e.clientX - b.left, my = e.clientY - b.top, R = D.residuos;
+  const hit = resBins.find(q => mx >= q.x && mx <= q.x1 && my >= q.y - 6 && my <= q.y0 + 4);
+  if (!hit) return hideTip();
+  const i = hit.i, a = (Math.exp(R.bordes[i]) - 1) * 100, z = (Math.exp(R.bordes[i + 1]) - 1) * 100;
+  showTip(e, `<span class="m">error entre ${fmt(a, 1)} % y ${fmt(z, 1)} %</span><br>examen <b>${pct(R.val[i])} %</b> de las fórmulas<br>práctica <b>${pct(R.train[i])} %</b>`);
+});
+$("#res").addEventListener("mouseleave", hideTip);
+
+/* ---- cobertura ---- */
+function drawCob(prog = 1) {
+  const [g, w, h] = setup($("#cob")), cx = w / 2, cy = h * 0.56, R = Math.min(w, h) * 0.36;
+  const v = mv.cobertura_2s * prog, a0 = Math.PI * 0.75, a1 = Math.PI * 2.25;
+  g.lineCap = "round"; g.lineWidth = 18; g.strokeStyle = "rgba(139,92,246,.12)"; g.beginPath(); g.arc(cx, cy, R, a0, a1); g.stroke();
+  const gr = g.createLinearGradient(cx - R, 0, cx + R, 0); gr.addColorStop(0, "#22c3ee"); gr.addColorStop(.5, "#8b5cf6"); gr.addColorStop(1, "#ff3d8b");
+  g.strokeStyle = gr; g.shadowColor = "rgba(139,92,246,.5)"; g.shadowBlur = 16; g.beginPath(); g.arc(cx, cy, R, a0, a0 + (a1 - a0) * Math.max(0.001, v)); g.stroke(); g.shadowBlur = 0;
+  const ai = a0 + (a1 - a0) * 0.954; g.lineCap = "butt"; g.lineWidth = 3; g.strokeStyle = "#17162b"; g.beginPath(); g.moveTo(cx + Math.cos(ai) * (R - 16), cy + Math.sin(ai) * (R - 16)); g.lineTo(cx + Math.cos(ai) * (R + 16), cy + Math.sin(ai) * (R + 16)); g.stroke();
+  g.textAlign = "center"; g.fillStyle = "#17162b"; g.font = `700 46px ${SANS}`; g.fillText(pct(v) + "%", cx, cy + 10);
+  g.font = `14px ${SANS}`; g.fillStyle = "#6c6a8a"; g.fillText("de las mediciones", cx, cy + 34); g.fillText("dentro del rango", cx, cy + 52);
+  g.textAlign = "left"; g.font = `12.5px ${MONO}`; g.fillText("ideal 95.4 %", cx + Math.cos(ai) * (R + 22) + 6, cy + Math.sin(ai) * (R + 22) + 10);
+}
+
+/* =================== arranque =================== */
+function animar(fn, dur) { const t0 = performance.now(); const step = t => { const p = Math.min(1, (t - t0) / dur); fn(1 - Math.pow(1 - p, 3)); if (p < 1) requestAnimationFrame(step); }; requestAnimationFrame(step); setTimeout(() => fn(1), dur + 150); }
+function estaticos() { drawDisp(); animar(drawCurvas, 1100); animar(drawRes, 1200); animar(drawCob, 1300); drawSpec(); }
+function loop(t) { drawLand(t); drawRays(t); drawMapa(); requestAnimationFrame(loop); }
+let rt; window.addEventListener("resize", () => { clearTimeout(rt); rt = setTimeout(estaticos, 150); });
+lab.mapF = Math.max(0, FL.findIndex(f => f.id === "avobenzona")); $("#selF").value = lab.mapF;
+if (ref0) cargarFormula(ref0.filtros, ref0.vehiculo); else { syncUI(); recalcular(true); }
+calcMapa(); estaticos(); requestAnimationFrame(loop);
+}
+</script>
+</body>
+</html>

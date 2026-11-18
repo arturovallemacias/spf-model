@@ -1,0 +1,24 @@
+{
+  "_nota": "Espectros, limites, fotolabilidad y costos APROXIMADOS. Reemplazalos por datos medidos, limites de COFEPRIS/FDA/UE y tus precios por kg.",
+  "filtros": [
+    {"id": "ehmc", "nombre": "Octinoxato (EHMC)", "picos": [{"nm": 310, "E": 850, "sigma": 15}], "max_pct": 10, "fotolabilidad": 0.25, "costo_rel": 1.0},
+    {"id": "avobenzona", "nombre": "Avobenzona (BMDBM)", "picos": [{"nm": 357, "E": 1100, "sigma": 16}], "max_pct": 5, "fotolabilidad": 0.8, "costo_rel": 3.0},
+    {"id": "octocrileno", "nombre": "Octocrileno", "picos": [{"nm": 303, "E": 350, "sigma": 16}], "max_pct": 10, "fotolabilidad": 0.02, "costo_rel": 1.5},
+    {"id": "homosalato", "nombre": "Homosalato", "picos": [{"nm": 306, "E": 170, "sigma": 13}], "max_pct": 7.34, "fotolabilidad": 0.05, "costo_rel": 0.8},
+    {"id": "octisalato", "nombre": "Octisalato", "picos": [{"nm": 307, "E": 180, "sigma": 13}], "max_pct": 5, "fotolabilidad": 0.03, "costo_rel": 0.9},
+    {"id": "oxibenzona", "nombre": "Oxibenzona (BP-3)", "picos": [{"nm": 288, "E": 640, "sigma": 12}, {"nm": 325, "E": 380, "sigma": 18}], "max_pct": 6, "fotolabilidad": 0.05, "costo_rel": 1.2},
+    {"id": "bemt", "nombre": "Bemotrizinol (BEMT)", "picos": [{"nm": 310, "E": 750, "sigma": 18}, {"nm": 343, "E": 800, "sigma": 18}], "max_pct": 10, "fotolabilidad": 0.0, "costo_rel": 6.0},
+    {"id": "mbbt", "nombre": "Bisoctrizol (MBBT)", "picos": [{"nm": 305, "E": 470, "sigma": 16}, {"nm": 360, "E": 450, "sigma": 18}], "max_pct": 10, "fotolabilidad": 0.0, "costo_rel": 5.0},
+    {"id": "pbsa", "nombre": "Ensulizol (PBSA)", "picos": [{"nm": 302, "E": 920, "sigma": 12}], "max_pct": 8, "fotolabilidad": 0.05, "costo_rel": 2.0},
+    {"id": "eht", "nombre": "Etilhexil triazona (EHT)", "picos": [{"nm": 314, "E": 1500, "sigma": 12}], "max_pct": 5, "fotolabilidad": 0.01, "costo_rel": 5.0},
+    {"id": "dhhb", "nombre": "DHHB (Uvinul A Plus)", "picos": [{"nm": 354, "E": 900, "sigma": 18}], "max_pct": 10, "fotolabilidad": 0.02, "costo_rel": 4.0},
+    {"id": "zno", "nombre": "Oxido de zinc", "tipo": "inorganico", "E_meseta": 40, "borde_nm": 372, "ancho_borde": 6, "max_pct": 25, "fotolabilidad": 0.0, "costo_rel": 1.5},
+    {"id": "tio2", "nombre": "Dioxido de titanio", "tipo": "inorganico", "E_meseta": 60, "borde_nm": 345, "ancho_borde": 10, "max_pct": 25, "fotolabilidad": 0.0, "costo_rel": 1.5}
+  ],
+  "interacciones": [
+    {"objetivo": "avobenzona", "agente": "octocrileno", "tipo": "estabiliza", "fuerza": 2.0},
+    {"objetivo": "avobenzona", "agente": "bemt", "tipo": "estabiliza", "fuerza": 1.5},
+    {"objetivo": "avobenzona", "agente": "ehmc", "tipo": "desestabiliza", "fuerza": 1.0},
+    {"objetivo": "ehmc", "agente": "bemt", "tipo": "estabiliza", "fuerza": 0.8}
+  ]
+}

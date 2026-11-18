@@ -1,0 +1,63 @@
+{
+  "device": "cuda",
+  "rutas": {
+    "datos": "datos/dataset.pt",
+    "modelo": "modelos/modelo.pt",
+    "graficas": "graficas",
+    "resultados": "resultados"
+  },
+  "vehiculos": {
+    "emulsion_ow": 0.8,
+    "emulsion_wo": 1.0,
+    "spray": 0.5,
+    "barra": 0.65
+  },
+  "simulacion": {
+    "n_muestras": 200000,
+    "semilla": 0,
+    "espesor_cm": 0.002,
+    "dosis_uv": 1.0,
+    "jitter_pelicula": 0.2,
+    "ruido_abs": 0.02,
+    "ruido_rel": 0.02,
+    "min_filtros": 1,
+    "max_filtros": 6,
+    "carga_max_pct": 30,
+    "espectro_solar_csv": null
+  },
+  "formulas_referencia": [
+    {"nombre": "EHMC 7.5%", "vehiculo": "emulsion_ow", "filtros": {"ehmc": 7.5}},
+    {"nombre": "Avobenzona 3 + Octocrileno 10 + Homosalato 7", "vehiculo": "emulsion_ow", "filtros": {"avobenzona": 3, "octocrileno": 10, "homosalato": 7}},
+    {"nombre": "Avobenzona 3 + EHMC 7.5 (inestable)", "vehiculo": "emulsion_ow", "filtros": {"avobenzona": 3, "ehmc": 7.5}},
+    {"nombre": "ZnO 20%", "vehiculo": "emulsion_wo", "filtros": {"zno": 20}},
+    {"nombre": "BEMT 3 + EHT 3 + DHHB 5 + EHMC 7.5", "vehiculo": "emulsion_ow", "filtros": {"bemt": 3, "eht": 3, "dhhb": 5, "ehmc": 7.5}}
+  ],
+  "entrenamiento": {
+    "arquitectura": "mlp",
+    "epocas": 30,
+    "batch": 1024,
+    "lr": {"mlp": 0.001, "fisico": 0.01},
+    "weight_decay": 0.0001,
+    "ancho": 128,
+    "capas": 4,
+    "peso_spf": 1.0,
+    "fraccion_validacion": 0.1
+  },
+  "diseno": {
+    "spf_objetivo": 50,
+    "margen_seguridad": 1.25,
+    "uva_ratio_min": 0.3333,
+    "vehiculo": "emulsion_ow",
+    "filtros_permitidos": null,
+    "carga_max_pct": 25,
+    "peso_uva": 10.0,
+    "peso_carga": 1.0,
+    "peso_costo": 0.05,
+    "peso_num_filtros": 0.01,
+    "reinicios": 64,
+    "pasos": 800,
+    "lr": 0.05,
+    "umbral_minimo_pct": 0.2,
+    "top": 5
+  }
+}

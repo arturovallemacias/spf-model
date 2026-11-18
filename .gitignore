@@ -1,0 +1,15 @@
+# entorno
+venv/
+__pycache__/
+*.pyc
+
+# datos y modelos (se regeneran con los .bat)
+datos/
+modelos/
+graficas/
+resultados/
+
+# el panel publicado sí se sube
+!docs/
+web/
+*.zip
